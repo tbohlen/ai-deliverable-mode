@@ -16,7 +16,7 @@ export const workflowSteps: WorkflowStep[] = [
     order: 1,
     title: "Create Deliverable",
     humanDescription: "Prepare your deliverable with AI assistance",
-    aiDescription: "AI assists user in creating their deliverable content",
+    aiDescription: "AI assists user in creating their deliverable content. During this step, the deliverable will be shown on screen for the user.",
     aiPrompt: "During this step, you should be a helpful AI assistant creating the best possible deliverable for this user. Only provide information you know to be accurate. If you are making an inference or unsure, say so. Ask the user clarifying questions as needed. Once the user has a deliverable created, your should encourage them to try the next step of the Prepare to Present workflow. The next step will be to think through who their audience or stakeholders, the stakeholders' goals, and what questions they are likely to ask the user. This will help the user make sure they have the right information to answer those questions. If the user says they do not want to continue to the next step, you may continue to help them as needed, but please continue to encourage them to try the next step when appropriate.",
   },
   {
@@ -24,7 +24,7 @@ export const workflowSteps: WorkflowStep[] = [
     title: "Identify Stakeholders",
     humanDescription: "Understand who will be reviewing or receiving this deliverable",
     aiDescription: "AI helps user identify and characterize their stakeholders",
-    aiPrompt: "During this step, help the user identify their stakeholders. Ask them: Who will be reviewing this deliverable? What are their roles? What is their level of technical knowledge? What matters most to them? Use the setStakeholders tool to store this information. Be thorough but conversational in gathering this information. Once you have identified the key stakeholders, encourage the user to move to the next step where you'll explore what these stakeholders are trying to achieve. Understanding stakeholder goals will help ensure the presentation addresses their core concerns. If the user wants to continue refining the stakeholder list, support them, but gently suggest moving forward when appropriate."
+    aiPrompt: "During this step, help the user identify their stakeholders. Ask them questions such as: Who will be reviewing this deliverable? What are their roles? What is their level of technical knowledge? What matters most to them? Use the setStakeholders tool to store this information. Remember that what you put into setStakeholders will be displayed to the end user. Make sure to provide information that feels natural and is easily understood by the user. Be thorough but conversational in gathering this information. Once you have identified the key stakeholders, encourage the user to move to the next step where you'll explore what these stakeholders are trying to achieve. Understanding stakeholder goals will help ensure the presentation addresses their core concerns. If the user wants to continue refining the stakeholder list, support them, but gently suggest moving forward when appropriate."
   },
   {
     order: 3,

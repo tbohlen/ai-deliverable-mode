@@ -2,6 +2,7 @@ import { Deliverable } from '../types/deliverable';
 import { DeliverableToolCall } from '../tools/deliverable-tools';
 import { StakeholderToolCall } from '../tools/stakeholder-tools';
 import { WorkflowStepToolCall } from '../tools/workflow-step-tools';
+import { workflowSteps } from '../workflow-steps';
 
 interface DeliverableToolHandlerDependencies {
   setDeliverable: (deliverable: Deliverable) => void;
@@ -14,7 +15,10 @@ interface DeliverableToolHandlerDependencies {
 type AllToolCalls = DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall;
 
 /**
- * Creates tool handlers for all tool calls
+ * This is the file for FRONTEND tool handlers.
+ * As each tool request is made by the AI, this system will update the frontend
+ * data store with the latest values. This is a somewhat crude way to keep it in
+ * sync with the backend, but works well for a quick prototype.
  */
 export function createToolHandlers({ 
   setDeliverable, 
@@ -54,7 +58,9 @@ export function createToolHandlers({
     },
     setWorkflowStep: (toolCall: WorkflowStepToolCall) => {
       if (toolCall.toolName === 'setWorkflowStep') {
-        setWorkflowStep(toolCall.args.stepOrder);
+        console.log("Setting workflow step:", toolCall.args.stepOrder);
+        const workflowStep = workflowSteps.find(step => step.order === toolCall.args.stepOrder);
+        setWorkflowStep(workflowStep || null);
       }
     }
   };

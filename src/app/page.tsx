@@ -24,11 +24,11 @@ export default function Home() {
           </div>
         </div>
         <div className={`transition-all duration-300 ease-in-out ${
-          !!workflowStep
+          (workflowStep && workflowStep.order > 0)
             ? 'translate-x-0 opacity-100 w-3/5' 
             : 'translate-x-full opacity-0 w-0'
         }`}>
-          {!!workflowStep && <RightColumn />}
+          {workflowStep && workflowStep.order > 0 && <RightColumn />}
         </div>
       </main>
     </div>

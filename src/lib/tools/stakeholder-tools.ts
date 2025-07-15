@@ -5,9 +5,9 @@ import { ServerStore } from '../server-store';
 export function createStakeholderTools(sessionId: string) {
   const tools = {
     setStakeholders: tool({
-      description: 'Set stakeholder information for the current session',
+      description: 'Set stakeholder information for the current session. This information will be displayed to the user.',
       parameters: z.object({
-        stakeholders: z.string().describe('Information about the stakeholders who will review this deliverable'),
+        stakeholders: z.string().max(200, 'Stakeholder information must be 200 characters or less').describe('Information about the stakeholders who will review this deliverable'),
       }),
       execute: async ({ stakeholders }) => {
         try {
@@ -49,9 +49,9 @@ export function createStakeholderTools(sessionId: string) {
     }),
 
     setGoals: tool({
-      description: 'Set stakeholder goals for the current session',
+      description: 'Set stakeholder goals for the current session. This will be displayed to the user.',
       parameters: z.object({
-        goals: z.string().describe('Information about what the stakeholders hope to achieve or learn'),
+        goals: z.string().max(200, 'Goals information must be 200 characters or less').describe('Information about what the stakeholders hope to achieve or learn'),
       }),
       execute: async ({ goals }) => {
         try {
@@ -93,9 +93,9 @@ export function createStakeholderTools(sessionId: string) {
     }),
 
     setQuestions: tool({
-      description: 'Set anticipated questions from stakeholders for the current session',
+      description: 'Set anticipated questions from stakeholders for the current session. This will be displayed to the user and used as practice questions for them.',
       parameters: z.object({
-        questions: z.array(z.string()).describe('Array of questions stakeholders might ask about the deliverable'),
+        questions: z.array(z.string().max(200, 'Each question must be 200 characters or less')).describe('Array of questions stakeholders might ask about the deliverable'),
       }),
       execute: async ({ questions }) => {
         try {

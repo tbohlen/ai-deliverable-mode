@@ -7,7 +7,7 @@ import { ChatInterfaceEmptyState } from "./chat-interface-empty-state";
 import { ChatInputBar } from "./chat-input-bar";
 import { ChatMessageDisplayer } from "./chat-message-displayer";
 import { useClientStore } from "@/lib/store/client-store";
-import { createToolHandlers } from "@/lib/utils/tool-handlers";
+import { createToolHandlers } from "@/lib/utils/client-tool-handlers";
 import { DeliverableToolCall } from "@/lib/tools/deliverable-tools";
 import { StakeholderToolCall } from "@/lib/tools/stakeholder-tools";
 import { WorkflowStepToolCall } from "@/lib/tools/workflow-step-tools";

@@ -15,42 +15,8 @@ export function ChatInterfaceEmptyState() {
         </div>
         <h3 className="text-lg font-semibold mb-2">Start a conversation</h3>
         <p className="text-muted-foreground max-w-md">
-          Chat with AI to create deliverables, then get help preparing to present them to your stakeholders.
+          Chat with AI to create deliverables, then get help preparing to present them to your stakeholders. You might learn something new along the way.
         </p>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center text-sm">
-              <Sparkles className="w-4 h-4 text-primary mr-2" />
-              Create with AI
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <p className="text-sm text-muted-foreground">
-              Get help writing reports, presentations, or any deliverable
-            </p>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center text-sm">
-              <MessageSquare className="w-4 h-4 text-primary mr-2" />
-              Prepare to present
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <p className="text-sm text-muted-foreground">
-              Understand your work and get ready to present it confidently
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="mt-6 text-sm text-muted-foreground">
-        Type your message below to get started
       </div>
     </div>
   );
