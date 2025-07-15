@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ChatInterfaceEmptyState } from "./chat-interface-empty-state";
 import { ChatInputBar } from "./chat-input-bar";
@@ -30,6 +30,9 @@ export function ChatInterface() {
   
   // Generate a stable sessionId for this chat session
   const sessionId = useMemo(() => uuidv4(), []);
+  
+  // Ref for scrolling to bottom
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Set the sessionId in the store
   useEffect(() => {
@@ -63,6 +66,11 @@ export function ChatInterface() {
     onToolCall: handleToolCall,
   });
 
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto min-h-0">
@@ -73,6 +81,7 @@ export function ChatInterface() {
             {messages.map((message) => (
               <ChatMessageDisplayer key={message.id} message={message} />
             ))}
+            <div ref={messagesEndRef} />
           </div>
         )}
       </div>
