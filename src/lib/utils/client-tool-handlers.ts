@@ -5,13 +5,14 @@ import { StakeholderToolCall } from '../tools/stakeholder-tools';
 import { WorkflowStepToolCall } from '../tools/workflow-step-tools';
 import { AnnotationToolCall } from '../tools/annotation-tools';
 import { workflowSteps } from '../workflow-steps';
+import { WorkflowStep } from '../types/workflow-step';
 
 interface DeliverableToolHandlerDependencies {
   setDeliverable: (deliverable: Deliverable) => void;
   setStakeholders: (stakeholders: string) => void;
   setGoals: (goals: string) => void;
   setQuestions: (questions: string[]) => void;
-  setWorkflowStep: (workflowStep: any) => void;
+  setWorkflowStep: (workflowStep: WorkflowStep | null) => void;
   setAnnotations: (annotations: Annotation[]) => void;
 }
 

@@ -37,7 +37,7 @@ export function ChatInterface() {
   // Set the sessionId in the store
   useEffect(() => {
     setSessionId(sessionId);
-  }, [setSessionId]);
+  }, [setSessionId, sessionId]);
 
   // Create extensible tool handlers
   const toolHandlers = useMemo(() => ({

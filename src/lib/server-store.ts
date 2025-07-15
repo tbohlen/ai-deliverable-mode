@@ -1,4 +1,5 @@
 import { Deliverable } from './types/deliverable';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
  * ServerStore handles storage and retrieval of session data based on sessionID
@@ -72,3 +73,4 @@ export class ServerStore {
     return this.getValue(sessionId, 'deliverable') || null;
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */

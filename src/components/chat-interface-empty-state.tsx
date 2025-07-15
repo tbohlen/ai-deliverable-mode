@@ -1,5 +1,4 @@
-import { MessageSquare, Sparkles } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MessageSquare } from "lucide-react";
 
 /**
  * Empty state component displayed when chat interface has no messages
