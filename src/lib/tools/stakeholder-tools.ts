@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { tool, ToolCallUnion, ToolResultUnion } from 'ai';
-import { DeliverableManager } from '../deliverable-manager';
+import { ServerStore } from '../server-store';
 
 export function createStakeholderTools(sessionId: string) {
   const tools = {
@@ -11,8 +11,8 @@ export function createStakeholderTools(sessionId: string) {
       }),
       execute: async ({ stakeholders }) => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          deliverableManager.setValue(sessionId, 'stakeholders', stakeholders);
+          const serverStore = ServerStore.getInstance();
+          serverStore.setValue(sessionId, 'stakeholders', stakeholders);
           return {
             success: true,
             message: 'Stakeholder information updated successfully',
@@ -32,8 +32,8 @@ export function createStakeholderTools(sessionId: string) {
       parameters: z.object({}),
       execute: async () => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          const stakeholders = deliverableManager.getValue(sessionId, 'stakeholders');
+          const serverStore = ServerStore.getInstance();
+          const stakeholders = serverStore.getValue(sessionId, 'stakeholders');
           return {
             success: true,
             message: stakeholders ? 'Stakeholder information retrieved successfully' : 'No stakeholder information found',
@@ -55,8 +55,8 @@ export function createStakeholderTools(sessionId: string) {
       }),
       execute: async ({ goals }) => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          deliverableManager.setValue(sessionId, 'goals', goals);
+          const serverStore = ServerStore.getInstance();
+          serverStore.setValue(sessionId, 'goals', goals);
           return {
             success: true,
             message: 'Stakeholder goals updated successfully',
@@ -76,8 +76,8 @@ export function createStakeholderTools(sessionId: string) {
       parameters: z.object({}),
       execute: async () => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          const goals = deliverableManager.getValue(sessionId, 'goals');
+          const serverStore = ServerStore.getInstance();
+          const goals = serverStore.getValue(sessionId, 'goals');
           return {
             success: true,
             message: goals ? 'Stakeholder goals retrieved successfully' : 'No stakeholder goals found',
@@ -99,8 +99,8 @@ export function createStakeholderTools(sessionId: string) {
       }),
       execute: async ({ questions }) => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          deliverableManager.setValue(sessionId, 'questions', questions);
+          const serverStore = ServerStore.getInstance();
+          serverStore.setValue(sessionId, 'questions', questions);
           return {
             success: true,
             message: 'Questions updated successfully',
@@ -120,8 +120,8 @@ export function createStakeholderTools(sessionId: string) {
       parameters: z.object({}),
       execute: async () => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          const questions = deliverableManager.getValue(sessionId, 'questions');
+          const serverStore = ServerStore.getInstance();
+          const questions = serverStore.getValue(sessionId, 'questions');
           return {
             success: true,
             message: questions ? 'Questions retrieved successfully' : 'No questions found',

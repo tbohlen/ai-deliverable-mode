@@ -1,23 +1,23 @@
 import { Deliverable } from './types/deliverable';
 
 /**
- * DeliverableManager handles storage and retrieval of session data based on sessionID
+ * ServerStore handles storage and retrieval of session data based on sessionID
  * Uses in-memory storage for general session data keyed by sessionID
  */
-export class DeliverableManager {
-  private static instance: DeliverableManager;
+export class ServerStore {
+  private static instance: ServerStore;
   private sessionData: Map<string, Map<string, any>> = new Map();
 
   private constructor() {}
 
   /**
-   * Get singleton instance of DeliverableManager
+   * Get singleton instance of ServerStore
    */
-  static getInstance(): DeliverableManager {
-    if (!DeliverableManager.instance) {
-      DeliverableManager.instance = new DeliverableManager();
+  static getInstance(): ServerStore {
+    if (!ServerStore.instance) {
+      ServerStore.instance = new ServerStore();
     }
-    return DeliverableManager.instance;
+    return ServerStore.instance;
   }
 
   /**

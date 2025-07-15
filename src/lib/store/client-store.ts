@@ -1,0 +1,40 @@
+import { create } from 'zustand';
+import { Deliverable } from '../types/deliverable';
+import { WorkflowStep } from '../types/workflow-step';
+
+interface ClientStore {
+  deliverable: Deliverable | null;
+  isDeliverableMode: boolean;
+  sessionId: string | null;
+  stakeholders: string | null;
+  goals: string | null;
+  questions: string[] | null;
+  workflowStep: WorkflowStep | null;
+  
+  // Actions
+  setDeliverable: (deliverable: Deliverable) => void;
+  clearDeliverable: () => void;
+  setSessionId: (sessionId: string) => void;
+  setStakeholders: (stakeholders: string) => void;
+  setGoals: (goals: string) => void;
+  setQuestions: (questions: string[]) => void;
+  setWorkflowStep: (workflowStep: WorkflowStep) => void;
+}
+
+export const useClientStore = create<ClientStore>((set) => ({
+  deliverable: null,
+  isDeliverableMode: false,
+  sessionId: null,
+  stakeholders: null,
+  goals: null,
+  questions: null,
+  workflowStep: null,
+  
+  setDeliverable: (deliverable) => set({ deliverable }),
+  clearDeliverable: () => set({ deliverable: null }),
+  setSessionId: (sessionId) => set({ sessionId }),
+  setStakeholders: (stakeholders) => set({ stakeholders }),
+  setGoals: (goals) => set({ goals }),
+  setQuestions: (questions) => set({ questions }),
+  setWorkflowStep: (workflowStep) => set({ workflowStep }),
+}));

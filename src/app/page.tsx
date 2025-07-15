@@ -3,14 +3,14 @@
 import { HeaderBar } from "@/components/header-bar";
 import { ChatInterface } from "@/components/chat-interface";
 import { RightColumn } from "@/components/right-column";
-import { useDeliverableStore } from "@/lib/store/deliverable-store";
+import { useClientStore } from "@/lib/store/client-store";
 
 /**
  * Home page component that displays the main chat interface
  * Shows header bar and chat interface with deliverable mode right column
  */
 export default function Home() {
-  const { isDeliverableMode } = useDeliverableStore();
+  const { workflowStep } = useClientStore();
 
   return (
     <div className="h-screen bg-background flex flex-col">
@@ -24,11 +24,11 @@ export default function Home() {
           </div>
         </div>
         <div className={`transition-all duration-300 ease-in-out ${
-          isDeliverableMode 
+          !!workflowStep
             ? 'translate-x-0 opacity-100 w-3/5' 
             : 'translate-x-full opacity-0 w-0'
         }`}>
-          {isDeliverableMode && <RightColumn />}
+          {!!workflowStep && <RightColumn />}
         </div>
       </main>
     </div>

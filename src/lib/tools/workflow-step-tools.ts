@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { tool, ToolCallUnion, ToolResultUnion } from 'ai';
-import { DeliverableManager } from '../deliverable-manager';
+import { ServerStore } from '../server-store';
 import { workflowSteps } from '../workflow-steps';
 
 export function createWorkflowStepTools(sessionId: string) {
@@ -12,8 +12,8 @@ export function createWorkflowStepTools(sessionId: string) {
       }),
       execute: async ({ stepOrder }) => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          deliverableManager.setValue(sessionId, 'workflowStep', stepOrder);
+          const serverStore = ServerStore.getInstance();
+          serverStore.setValue(sessionId, 'workflowStep', stepOrder);
           
           const workflowStep = workflowSteps.find(step => step.order === stepOrder);
           
@@ -36,8 +36,8 @@ export function createWorkflowStepTools(sessionId: string) {
       parameters: z.object({}),
       execute: async () => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          const stepOrder = deliverableManager.getValue(sessionId, 'workflowStep');
+          const serverStore = ServerStore.getInstance();
+          const stepOrder = serverStore.getValue(sessionId, 'workflowStep');
           const currentStepOrder = stepOrder || 1; // Default to step 1 if not set
           
           const workflowStep = workflowSteps.find(step => step.order === currentStepOrder);

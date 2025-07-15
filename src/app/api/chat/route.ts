@@ -1,9 +1,11 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { streamText } from "ai";
 import { createDeliverableTools } from "@/lib/tools/deliverable-tools";
+import { createStakeholderTools } from "@/lib/tools/stakeholder-tools";
+import { createWorkflowStepTools } from "@/lib/tools/workflow-step-tools";
 import mainPrompt from "@/lib/prompts/main-prompt";
 import { workflowSteps } from "@/lib/workflow-steps";
-import { DeliverableManager } from "@/lib/deliverable-manager";
+import { ServerStore } from "@/lib/server-store";
 
 /**
  * Chat API endpoint that streams responses from Anthropic Claude
@@ -30,19 +32,25 @@ export async function POST(req: Request) {
     }
 
     // generate the system prompt based on the current workflow step
-    const deliverableManager = DeliverableManager.getInstance();
-    const currentStep = deliverableManager.getValue(sessionId, 'currentStep') || 0;
+    const serverStore = ServerStore.getInstance();
+    const currentStep = serverStore.getValue(sessionId, 'currentStep') || 0;
     const prompt = mainPrompt(workflowSteps, currentStep);
 
     // Create session-specific tools
     const deliverableTools = createDeliverableTools(sessionId);
+    const stakeholderTools = createStakeholderTools(sessionId);
+    const workflowStepTools = createWorkflowStepTools(sessionId);
 
     // Stream the response from Anthropic Claude
     const result = await streamText({
       model: anthropic("claude-3-5-sonnet-20241022"),
       messages,
       system: prompt,
-      tools: deliverableTools,
+      tools: {
+        ...deliverableTools,
+        ...stakeholderTools,
+        ...workflowStepTools
+      },
       maxSteps: 10
     });
 

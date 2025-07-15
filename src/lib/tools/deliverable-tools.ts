@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { tool, ToolCallUnion, ToolResultUnion } from 'ai';
-import { DeliverableManager } from '../deliverable-manager';
+import { ServerStore } from '../server-store';
 
 export function createDeliverableTools(sessionId: string) {
   const tools = {
@@ -12,8 +12,8 @@ export function createDeliverableTools(sessionId: string) {
       }),
       execute: async ({ title, content }) => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          const deliverable = deliverableManager.setDeliverable(sessionId, title, content);
+          const serverStore = ServerStore.getInstance();
+          const deliverable = serverStore.setDeliverable(sessionId, title, content);
           return {
             success: true,
             message: 'Deliverable updated successfully',
@@ -33,8 +33,8 @@ export function createDeliverableTools(sessionId: string) {
       parameters: z.object({}),
       execute: async () => {
         try {
-          const deliverableManager = DeliverableManager.getInstance();
-          const deliverable = deliverableManager.getDeliverable(sessionId);
+          const serverStore = ServerStore.getInstance();
+          const deliverable = serverStore.getDeliverable(sessionId);
           if (deliverable) {
             return {
               success: true,

@@ -1,4 +1,4 @@
-import { useDeliverableStore } from "@/lib/store/deliverable-store";
+import { useClientStore } from "@/lib/store/client-store";
 import { Deliverable } from "./deliverable";
 import { DeliverableModeEmptyState } from "./deliverable-mode-empty-state";
 
@@ -7,7 +7,7 @@ import { DeliverableModeEmptyState } from "./deliverable-mode-empty-state";
  * Positioned on the right side with custom styling
  */
 export function RightColumn() {
-  const { deliverable } = useDeliverableStore();
+  const { deliverable } = useClientStore();
 
   return (
     <div className="w-1 border-l bg-muted/30 overflow-y-auto h-full w-full">

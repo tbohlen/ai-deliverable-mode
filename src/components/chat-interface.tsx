@@ -6,16 +6,25 @@ import { v4 as uuidv4 } from "uuid";
 import { ChatInterfaceEmptyState } from "./chat-interface-empty-state";
 import { ChatInputBar } from "./chat-input-bar";
 import { ChatMessageDisplayer } from "./chat-message-displayer";
-import { useDeliverableStore } from "@/lib/store/deliverable-store";
-import { createDeliverableToolHandlers } from "@/lib/utils/deliverable-tool-handlers";
+import { useClientStore } from "@/lib/store/client-store";
+import { createToolHandlers } from "@/lib/utils/tool-handlers";
 import { DeliverableToolCall } from "@/lib/tools/deliverable-tools";
+import { StakeholderToolCall } from "@/lib/tools/stakeholder-tools";
+import { WorkflowStepToolCall } from "@/lib/tools/workflow-step-tools";
 
 /**
  * Main chat interface component that handles the chat conversation flow
  * Uses useChat hook for AI chat functionality and manages message state
  */
 export function ChatInterface() {
-  const { setSessionId, setDeliverable, setDeliverableMode } = useDeliverableStore();
+  const { 
+    setSessionId, 
+    setDeliverable, 
+    setStakeholders,
+    setGoals,
+    setQuestions,
+    setWorkflowStep
+  } = useClientStore();
   
   // Generate a stable sessionId for this chat session
   const sessionId = useMemo(() => uuidv4(), []);
@@ -27,10 +36,16 @@ export function ChatInterface() {
 
   // Create extensible tool handlers
   const toolHandlers = useMemo(() => ({
-    ...createDeliverableToolHandlers({ setDeliverable, setDeliverableMode }),
-  }), [setDeliverable, setDeliverableMode]);
+    ...createToolHandlers({ 
+      setDeliverable, 
+      setStakeholders,
+      setGoals,
+      setQuestions,
+      setWorkflowStep
+    }),
+  }), [setDeliverable, setStakeholders, setGoals, setQuestions, setWorkflowStep]);
 
-  const handleToolCall = useCallback(({toolCall}: {toolCall: DeliverableToolCall}) => {
+  const handleToolCall = useCallback(({toolCall}: {toolCall: DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall}) => {
     const handler = toolHandlers[toolCall.toolName];
     if (handler) {
       handler(toolCall);
