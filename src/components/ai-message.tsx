@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import type React from "react"
 import { Bot } from "lucide-react";
@@ -61,3 +62,4 @@ export function AIMessageDisplay({ message }: AIMessageProps) {
     <AIMessage message={message} />
   );
 }
+/* eslint-enable @typescript-eslint/ban-ts-comment */

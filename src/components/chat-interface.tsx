@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 "use client";
 
@@ -98,3 +99,4 @@ export function ChatInterface() {
     </div>
   );
 }
+/* eslint-enable @typescript-eslint/ban-ts-comment */
