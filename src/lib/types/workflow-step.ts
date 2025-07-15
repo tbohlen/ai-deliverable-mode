@@ -5,6 +5,7 @@
 export interface WorkflowStep {
   order: number;
   title: string;
-  description: string;
+  humanDescription: string;
+  aiDescription: string;
   aiPrompt: string;
 }

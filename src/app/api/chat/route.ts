@@ -1,6 +1,9 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { streamText } from "ai";
 import { createDeliverableTools } from "@/lib/tools/deliverable-tools";
+import mainPrompt from "@/lib/prompts/main-prompt";
+import { workflowSteps } from "@/lib/workflow-steps";
+import { DeliverableManager } from "@/lib/deliverable-manager";
 
 /**
  * Chat API endpoint that streams responses from Anthropic Claude
@@ -26,6 +29,11 @@ export async function POST(req: Request) {
       );
     }
 
+    // generate the system prompt based on the current workflow step
+    const deliverableManager = DeliverableManager.getInstance();
+    const currentStep = deliverableManager.getValue(sessionId, 'currentStep') || 0;
+    const prompt = mainPrompt(workflowSteps, currentStep);
+
     // Create session-specific tools
     const deliverableTools = createDeliverableTools(sessionId);
 
@@ -33,7 +41,7 @@ export async function POST(req: Request) {
     const result = await streamText({
       model: anthropic("claude-3-5-sonnet-20241022"),
       messages,
-      system: "You are a helpful AI assistant designed to help users create deliverables and prepare to present them. Be conversational, supportive, and focus on helping users understand the work they're creating with your assistance.",
+      system: prompt,
       tools: deliverableTools,
       maxSteps: 10
     });
