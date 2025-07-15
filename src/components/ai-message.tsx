@@ -31,7 +31,7 @@ export function AIMessage({ message }: AIMessageProps) {
       </Avatar>
       <div className="flex-1 max-w-4xl">
         <Card className="bg-muted/50">
-          <CardContent className="p-4">
+          <CardContent className="">
             <div className="text-sm text-foreground whitespace-pre-wrap">
               {message.content}
             </div>

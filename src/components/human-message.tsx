@@ -27,7 +27,7 @@ export function HumanMessage({ message }: HumanMessageProps) {
     <div className="flex items-start gap-3 mb-4 justify-end">
       <div className="flex-1 max-w-4xl">
         <Card className="bg-primary text-primary-foreground">
-          <CardContent className="p-4">
+          <CardContent className="">
             <div className="text-sm whitespace-pre-wrap">
               {message.content}
             </div>

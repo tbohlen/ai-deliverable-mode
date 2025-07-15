@@ -1,17 +1,48 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import { useCallback, useEffect, useMemo } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { ChatInterfaceEmptyState } from "./chat-interface-empty-state";
 import { ChatInputBar } from "./chat-input-bar";
 import { ChatMessageDisplayer } from "./chat-message-displayer";
+import { useDeliverableStore } from "@/lib/store/deliverable-store";
+import { createDeliverableToolHandlers } from "@/lib/utils/deliverable-tool-handlers";
+import { DeliverableToolCall } from "@/lib/tools/deliverable-tools";
 
 /**
  * Main chat interface component that handles the chat conversation flow
  * Uses useChat hook for AI chat functionality and manages message state
  */
 export function ChatInterface() {
+  const { setSessionId, setDeliverable, setDeliverableMode } = useDeliverableStore();
+  
+  // Generate a stable sessionId for this chat session
+  const sessionId = useMemo(() => uuidv4(), []);
+  
+  // Set the sessionId in the store
+  useEffect(() => {
+    setSessionId(sessionId);
+  }, [setSessionId]);
+
+  // Create extensible tool handlers
+  const toolHandlers = useMemo(() => ({
+    ...createDeliverableToolHandlers({ setDeliverable, setDeliverableMode }),
+  }), [setDeliverable, setDeliverableMode]);
+
+  const handleToolCall = useCallback(({toolCall}: {toolCall: DeliverableToolCall}) => {
+    const handler = toolHandlers[toolCall.toolName];
+    if (handler) {
+      handler(toolCall);
+    }
+  }, [toolHandlers]);
+
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     api: "/api/chat",
+    body: {
+      sessionId,
+    },
+    onToolCall: handleToolCall,
   });
 
   return (
