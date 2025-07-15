@@ -27,11 +27,6 @@ export function createDeliverableToolHandlers({
         };
         setDeliverable(deliverable);
       }
-    },
-    turnOnDeliverableMode: (toolCall: DeliverableToolCall) => {
-      if (toolCall.toolName === 'turnOnDeliverableMode') {
-        setDeliverableMode(true);
-      }
-    },
+    }
   };
 }

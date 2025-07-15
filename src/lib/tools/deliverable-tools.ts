@@ -56,16 +56,6 @@ export function createDeliverableTools(sessionId: string) {
       },
     }),
 
-    turnOnDeliverableMode: tool({
-      description: 'Enable deliverable mode for the current session',
-      parameters: z.object({}),
-      execute: async () => {
-        return {
-          success: true,
-          message: 'Deliverable mode enabled',
-        };
-      },
-    }),
   };
   
   return tools;
