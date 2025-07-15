@@ -21,7 +21,7 @@ interface ClientStore {
   setStakeholders: (stakeholders: string) => void;
   setGoals: (goals: string) => void;
   setQuestions: (questions: string[]) => void;
-  setWorkflowStep: (workflowStep: WorkflowStep) => void;
+  setWorkflowStep: (workflowStep: WorkflowStep | null) => void;
   setAnnotations: (annotations: Annotation[]) => void;
   setSelectedAnnotation: (annotation: Annotation | null) => void;
 }

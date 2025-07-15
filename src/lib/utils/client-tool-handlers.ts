@@ -16,8 +16,6 @@ interface DeliverableToolHandlerDependencies {
   setAnnotations: (annotations: Annotation[]) => void;
 }
 
-type AllToolCalls = DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall | AnnotationToolCall;
-
 /**
  * This is the file for FRONTEND tool handlers.
  * As each tool request is made by the AI, this system will update the frontend
