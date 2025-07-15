@@ -1,4 +1,4 @@
-import { AIMessage } from "./ai-message";
+import { AIMessageDisplay } from "./ai-message";
 import { HumanMessage } from "./human-message";
 
 /**
@@ -26,7 +26,7 @@ export function ChatMessageDisplayer({ message }: ChatMessageDisplayerProps) {
     case 'user':
       return <HumanMessage message={message} />;
     case 'assistant':
-      return <AIMessage message={message} />;
+      return <AIMessageDisplay message={message} />;
     case 'system':
       // System messages are typically not displayed to users
       return null;

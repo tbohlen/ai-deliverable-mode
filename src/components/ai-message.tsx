@@ -1,16 +1,8 @@
+import type React from "react"
 import { Bot } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-
-/**
- * Message object from Vercel AI SDK useChat hook
- */
-interface UIMessage {
-  id: string;
-  role: 'system' | 'user' | 'assistant' | 'data';
-  createdAt?: Date;
-  content: string;
-}
+import { Message } from 'ai';
 
 /**
  * AI Message component that displays messages from the AI assistant
@@ -18,7 +10,7 @@ interface UIMessage {
  */
 interface AIMessageProps {
   /** Message object from useChat hook */
-  message: UIMessage;
+  message: Message;
 }
 
 export function AIMessage({ message }: AIMessageProps) {
@@ -39,5 +31,32 @@ export function AIMessage({ message }: AIMessageProps) {
         </Card>
       </div>
     </div>
+  );
+}
+
+export function AIMessageDisplay({ message }: AIMessageProps) {
+  if (message.parts && message.parts.length > 1) {
+    // this message might have multiple parts separated by step-start
+    const components: React.ReactNode[] = [];
+    for (let i = 0; i < message.parts.length; i++) {
+      if (message.parts[i].type === 'text') {
+        // create a ChatMessage component for this part and append it to components
+        components.push(
+          <AIMessage 
+            key={`${message.id}-${i}`}
+            message={{ ...message, content: message.parts[i].text, id: `${message.id}-${i}` }}
+          />
+        );
+      } else if (message.parts[i].type === 'tool-invocation'
+        && message.parts[i].toolInvocation.state === 'result'
+        && message.parts[i].toolInvocation.toolName === 'setDeliverable') {
+        // in future, display a tool use notification
+      }
+    }
+    return components
+  }
+
+  return (
+    <AIMessage message={message} />
   );
 }
