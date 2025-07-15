@@ -8,7 +8,7 @@ export function createDeliverableTools(sessionId: string) {
       description: 'Set or update the deliverable for the current session',
       parameters: z.object({
         title: z.string().describe('The title of the deliverable'),
-        content: z.string().describe('The markdown content of the deliverable'),
+        content: z.string().describe('The plain text content of the deliverable'),
       }),
       execute: async ({ title, content }) => {
         try {
