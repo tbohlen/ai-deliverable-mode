@@ -20,6 +20,7 @@ interface DeliverableProps {
 
 export function Deliverable({ deliverable }: DeliverableProps) {
   const { selectedAnnotation, annotations } = useClientStore();
+  console.log("Annotations in Deliverable:", annotations);
 
   // Highlight the selected annotation in the content using bold markdown
   const contentWithHighlights = highlightSelectedAnnotation(deliverable.content, selectedAnnotation);

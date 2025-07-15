@@ -1,7 +1,9 @@
 import { Deliverable } from '../types/deliverable';
+import { Annotation } from '../types/annotation';
 import { DeliverableToolCall } from '../tools/deliverable-tools';
 import { StakeholderToolCall } from '../tools/stakeholder-tools';
 import { WorkflowStepToolCall } from '../tools/workflow-step-tools';
+import { AnnotationToolCall } from '../tools/annotation-tools';
 import { workflowSteps } from '../workflow-steps';
 
 interface DeliverableToolHandlerDependencies {
@@ -10,9 +12,10 @@ interface DeliverableToolHandlerDependencies {
   setGoals: (goals: string) => void;
   setQuestions: (questions: string[]) => void;
   setWorkflowStep: (workflowStep: any) => void;
+  setAnnotations: (annotations: Annotation[]) => void;
 }
 
-type AllToolCalls = DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall;
+type AllToolCalls = DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall | AnnotationToolCall;
 
 /**
  * This is the file for FRONTEND tool handlers.
@@ -25,7 +28,8 @@ export function createToolHandlers({
   setStakeholders,
   setGoals,
   setQuestions,
-  setWorkflowStep
+  setWorkflowStep,
+  setAnnotations
 }: DeliverableToolHandlerDependencies) {
   return {
     setDeliverable: (toolCall: DeliverableToolCall) => {
@@ -61,6 +65,16 @@ export function createToolHandlers({
         console.log("Setting workflow step:", toolCall.args.stepOrder);
         const workflowStep = workflowSteps.find(step => step.order === toolCall.args.stepOrder);
         setWorkflowStep(workflowStep || null);
+      }
+    },
+    setAnnotations: (toolCall: AnnotationToolCall) => {
+      if (toolCall.toolName === 'setAnnotations') {
+        setAnnotations(toolCall.args.annotations);
+      }
+    },
+    clearAnnotations: (toolCall: AnnotationToolCall) => {
+      if (toolCall.toolName === 'clearAnnotations') {
+        setAnnotations([]);
       }
     }
   };

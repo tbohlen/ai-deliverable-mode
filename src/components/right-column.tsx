@@ -17,7 +17,6 @@ export function RightColumn() {
       return null;
     }
 
-    console.log("Current workflow step:", workflowStep.order);
     // Steps 2-4: Show stakeholder information during stakeholder identification phases
     if (workflowStep.order >= 2 && workflowStep.order <= 4) {
       return <StakeholderInformationContainer />;

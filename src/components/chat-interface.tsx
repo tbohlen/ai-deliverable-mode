@@ -11,6 +11,7 @@ import { createToolHandlers } from "@/lib/utils/client-tool-handlers";
 import { DeliverableToolCall } from "@/lib/tools/deliverable-tools";
 import { StakeholderToolCall } from "@/lib/tools/stakeholder-tools";
 import { WorkflowStepToolCall } from "@/lib/tools/workflow-step-tools";
+import { AnnotationToolCall } from "@/lib/tools/annotation-tools";
 
 /**
  * Main chat interface component that handles the chat conversation flow
@@ -23,12 +24,13 @@ export function ChatInterface() {
     setStakeholders,
     setGoals,
     setQuestions,
-    setWorkflowStep
+    setWorkflowStep,
+    setAnnotations
   } = useClientStore();
   
   // Generate a stable sessionId for this chat session
   const sessionId = useMemo(() => uuidv4(), []);
-  
+
   // Set the sessionId in the store
   useEffect(() => {
     setSessionId(sessionId);
@@ -41,11 +43,12 @@ export function ChatInterface() {
       setStakeholders,
       setGoals,
       setQuestions,
-      setWorkflowStep
+      setWorkflowStep,
+      setAnnotations
     }),
-  }), [setDeliverable, setStakeholders, setGoals, setQuestions, setWorkflowStep]);
+  }), [setDeliverable, setStakeholders, setGoals, setQuestions, setWorkflowStep, setAnnotations]);
 
-  const handleToolCall = useCallback(({toolCall}: {toolCall: DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall}) => {
+  const handleToolCall = useCallback(({toolCall}: {toolCall: DeliverableToolCall | StakeholderToolCall | WorkflowStepToolCall | AnnotationToolCall}) => {
     const handler = toolHandlers[toolCall.toolName];
     if (handler) {
       handler(toolCall);

@@ -3,6 +3,7 @@ import { streamText } from "ai";
 import { createDeliverableTools } from "@/lib/tools/deliverable-tools";
 import { createStakeholderTools } from "@/lib/tools/stakeholder-tools";
 import { createWorkflowStepTools } from "@/lib/tools/workflow-step-tools";
+import { createAnnotationTools } from "@/lib/tools/annotation-tools";
 import mainPrompt from "@/lib/prompts/main-prompt";
 import { workflowSteps } from "@/lib/workflow-steps";
 import { ServerStore } from "@/lib/server-store";
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
     const deliverableTools = createDeliverableTools(sessionId);
     const stakeholderTools = createStakeholderTools(sessionId);
     const workflowStepTools = createWorkflowStepTools(sessionId);
+    const annotationTools = createAnnotationTools(sessionId);
 
     // Stream the response from Anthropic Claude
     const result = await streamText({
@@ -49,7 +51,8 @@ export async function POST(req: Request) {
       tools: {
         ...deliverableTools,
         ...stakeholderTools,
-        ...workflowStepTools
+        ...workflowStepTools,
+        ...annotationTools
       },
       maxSteps: 10
     });
