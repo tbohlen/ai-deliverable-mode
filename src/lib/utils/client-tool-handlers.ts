@@ -62,7 +62,6 @@ export function createToolHandlers({
     },
     setWorkflowStep: (toolCall: WorkflowStepToolCall) => {
       if (toolCall.toolName === 'setWorkflowStep') {
-        console.log("Setting workflow step:", toolCall.args.stepOrder);
         const workflowStep = workflowSteps.find(step => step.order === toolCall.args.stepOrder);
         setWorkflowStep(workflowStep || null);
       }
